@@ -10,6 +10,7 @@ const path = require('path');
 
 const app = express();
 const port = Number(process.env.PORT || 8099);
+const clientDist = path.join(__dirname, 'dist');
 const mongoUri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB || 'mixval';
 const sessionSecret = process.env.SESSION_SECRET || 'dev-session-secret';
@@ -38,6 +39,7 @@ const DEFAULT_STATE = {
 };
 
 app.use(express.json({ limit: '1mb' }));
+app.use(express.static(clientDist));
 app.use(express.static(__dirname));
 
 function normalizeUserName(value) {
@@ -194,7 +196,9 @@ app.put('/api/state', requireAuth, async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(clientDist, 'index.html'), err => {
+    if (err) res.sendFile(path.join(__dirname, 'index.html'));
+  });
 });
 
 app.listen(port, () => {
