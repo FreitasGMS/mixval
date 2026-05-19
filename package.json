@@ -1,0 +1,16 @@
+{
+  "name": "mixval",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Organizador de mix com login e MongoDB Atlas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.12.0"
+  }
+}
